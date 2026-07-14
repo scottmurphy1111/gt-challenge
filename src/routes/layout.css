@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/* Shared component patterns. Anything that shows up more than twice belongs here. */
+
+@layer components {
+	/* Small uppercase eyebrow label above a title. */
+	.eyebrow {
+		@apply text-xs tracking-wide text-neutral-500 uppercase;
+	}
+
+	/* Default white card. */
+	.card {
+		@apply rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm;
+	}
+
+	/* Status cards — same shape as .card but colored to signal state. */
+	.card-success {
+		@apply rounded-2xl border border-emerald-300 bg-emerald-50 p-5 text-emerald-900;
+	}
+	.card-error {
+		@apply rounded-2xl border border-red-300 bg-red-50 p-5 text-red-900;
+	}
+	.card-warning {
+		@apply rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900;
+	}
+
+	/* Dev-controls container. Dashed, muted. */
+	.card-dev {
+		@apply rounded-2xl border border-dashed border-neutral-300 bg-neutral-50 p-4 text-xs text-neutral-600;
+	}
+
+	/* Inline alert (thinner than a card). */
+	.alert-error {
+		@apply rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-900;
+	}
+
+	/* Primary CTA — full-width, dark. */
+	.btn-primary {
+		@apply rounded-2xl bg-neutral-900 py-4 text-base font-semibold text-white shadow-sm transition;
+		@apply disabled:cursor-not-allowed disabled:bg-neutral-300;
+	}
+
+	/* Pill-shaped filled button used on the listing rows. */
+	.btn-pill {
+		@apply rounded-full bg-emerald-500 px-4 py-1.5 text-sm font-medium text-white;
+		@apply disabled:bg-neutral-400;
+	}
+
+	/* Small outline button used for the dev controls. */
+	.btn-outline {
+		@apply rounded border border-neutral-300 bg-white px-2 py-1;
+	}
+
+	/* Segmented toggle — pair of side-by-side "segments" in a rounded pill.
+	   Active segment gets .segment-active. */
+	.segmented {
+		@apply inline-flex items-center rounded-full bg-neutral-200 p-0.5 text-xs font-medium;
+	}
+	.segment {
+		@apply rounded-full px-3 py-1 text-neutral-600 no-underline transition;
+	}
+	.segment-active {
+		@apply bg-neutral-900 text-white;
+	}
+
+	/* Rounded surface badge (Web / Mobile). */
+	.surface-tag {
+		@apply rounded-full px-2 py-0.5 text-xs font-medium text-white;
+	}
+}
