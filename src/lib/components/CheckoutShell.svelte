@@ -1,7 +1,7 @@
 <script lang="ts">
 	// SSR renders event/price/timer/CTA from `initial`. Client hydrates the
 	// countdown and the poll refresh.
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { pollOnFocus } from '$lib/client/pollOnFocus';
 	import { formatMoney, formatEventDate, formatMmSs } from '$lib/shared/format';
 	import type { ResumedSession } from '$lib/shared/types';
@@ -11,11 +11,12 @@
 	}
 	let { initial }: Props = $props();
 
-	// NOTE: $state, not $derived — pollOnFocus and complete() reassign these.
-	// A $derived can't be assigned to, so making these derived crashes the
-	// first time the poll returns.
-	let session = $state(initial);
-	let secondsLeft = $state(initial.secondsLeft);
+	// $state, not $derived — pollOnFocus and complete() reassign these, and
+	// $derived is read-only. untrack() silences Svelte's state_referenced_locally
+	// warning: we intentionally treat `initial` as an initial value, not a
+	// reactive input to keep syncing from.
+	let session = $state(untrack(() => initial));
+	let secondsLeft = $state(untrack(() => initial.secondsLeft));
 	let submitting = $state(false);
 	let error = $state<string | null>(null);
 	let orderId = $state<string | null>(null);
